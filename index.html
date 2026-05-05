@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Offshore Worker Capture App v2.0</title>
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="apple-touch-icon" href="assets/images/app-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#063247">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <div class="brand">Offshore Worker Capture</div>
+    <div class="subbrand">Candidate data · WhatsApp contact · Future work database</div>
+  </div>
+  <nav class="nav">
+    <button id="navForm" class="active">New Worker</button>
+    <button id="navRecords">Records</button>
+    <button id="navSettings">Settings</button>
+  </nav>
+</header>
+
+<main class="app">
+<section id="hero" class="hero">
+  <div>
+    <div class="eyebrow">Recruitment / availability database</div>
+    <h1>Capture offshore worker details</h1>
+    <p>Store worker contact details, trade, country, availability and notes. Contact them directly by WhatsApp from saved records.</p><div id="syncStatus" class="sync-status">Google Sheets sync ready</div>
+  </div>
+  <div class="id-pill">WORKER ID <span id="workerId"></span></div>
+</section>
+
+<section id="formScreen">
+  <section class="card">
+    <div class="card-title"><div class="icon">👷</div><h2>Worker Details</h2></div>
+    <div class="fields">
+      <label><span>First Name <b>*</b></span><input id="firstName" autocomplete="given-name"></label>
+      <label><span>Last Name <b>*</b></span><input id="lastName" autocomplete="family-name"></label>
+      <label><span>Phone / WhatsApp <b>*</b></span><input id="phone" placeholder="+27 73 000 0000" inputmode="tel"></label>
+      <label><span>Email</span><input id="email" type="email" autocomplete="email"></label>
+      <label><span>Country <b>*</b></span><select id="country"></select></label>
+      <label><span>Nationality</span><select id="nationality"></select></label>
+      <div class="full check-section"><span>Job Types / Trades <b>*</b></span><div id="jobTypeChecks" class="check-grid"></div></div>
+      <label><span>Experience Level</span><select id="experience">
+        <option value="">Select experience</option>
+        <option>Entry level</option>
+        <option>1-2 years</option>
+        <option>3-5 years</option>
+        <option>5+ years</option>
+        <option>Supervisor / Lead</option>
+      </select></label>
+      <label><span>Availability</span><select id="availability">
+        <option value="">Select availability</option>
+        <option>Available immediately</option>
+        <option>Available within 1 week</option>
+        <option>Available within 2 weeks</option>
+        <option>Available next month</option>
+        <option>Currently unavailable</option>
+      </select></label>
+      <label><span>Current Location</span><input id="location" placeholder="City / port / country"></label>
+      <div class="full check-section"><span>Certificates / Tickets</span><div id="certificateChecks" class="check-grid"></div></div>
+      <label class="full"><span>Other Certificates / Tickets</span><textarea id="certificates" placeholder="Add anything not listed above"></textarea></label>
+      <label class="full"><span>Notes</span><textarea id="notes" placeholder="Experience, preferred roles, rates, restrictions, references, etc."></textarea></label>
+    </div>
+    <div class="actions">
+      <button id="clearForm" class="outline">Clear Form</button>
+      <button id="saveWorker" class="primary">Save Worker</button>
+    </div>
+  </section>
+</section>
+
+<section id="success" class="success card">
+  <div class="success-icon">✓</div>
+  <h1>Worker saved</h1>
+  <p>The worker has been added to your records.</p>
+  <div class="success-id">Worker ID: <span id="savedId"></span></div>
+  <div class="success-actions">
+    <button id="whatsappLast" class="whatsapp">WhatsApp Worker</button>
+    <button id="startNew" class="primary">Add Another Worker</button>
+  </div>
+</section>
+
+<section id="records" class="records card">
+  <div class="card-title"><div class="icon">▣</div><h2>Worker Records</h2></div>
+  <p class="hint">Search by name, country, trade, phone, email, availability or notes.</p>
+  <div class="search-row">
+    <input id="searchInput" placeholder="Search workers">
+    <button id="refreshSheets" class="primary">Refresh Sheet</button><button id="exportBtn" class="outline">Export Backup</button>
+  </div>
+  <div class="bulk-actions">
+    <button id="exportSelectedCsv" class="primary">Export Selected CSV</button>
+    <button id="clearSelected" class="outline">Clear Selected</button>
+  </div>
+  <div id="recordList" class="record-list"></div>
+</section>
+
+<section id="settings" class="settings card">
+  <div class="card-title"><div class="icon">⚙️</div><h2>Settings</h2></div>
+  <div class="settings-grid">
+    <div class="settings-section">
+      <h3>Dropdown Options</h3>
+      <p class="hint">Put one option per line. These options will appear in the form dropdowns.</p>
+      <div class="two">
+        <label><span>Job Types / Trades</span><textarea id="jobOptions"></textarea></label>
+        <label><span>Countries</span><textarea id="countryOptions"></textarea></label>
+        <label class="full"><span>Certificates / Tickets</span><textarea id="certificateOptions"></textarea></label>
+      </div>
+      <button id="saveOptions" class="primary">Save Options</button>
+    </div>
+    <div class="settings-section">
+      <h3>WhatsApp Message Template</h3>
+      <p class="hint">Use {firstName}, {jobType}, {workerId} as placeholders.</p>
+      <textarea id="whatsappTemplate"></textarea>
+      <button id="saveTemplate" class="primary">Save Template</button>
+    </div>
+  </div>
+</section>
+
+<section id="printArea" class="print-area"></section>
+<footer>Offshore Worker Capture App · Local records stored on this device/browser</footer>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

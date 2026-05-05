@@ -1,0 +1,1 @@
+Optional: add app-icon.png here if you want a custom iPad home screen icon.
